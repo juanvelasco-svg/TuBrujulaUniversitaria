@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brújula Universitaria · Tu primer año</title>
+  <!-- Font Awesome para iconos adicionales (opcional) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #f0f4fa;
+      color: #1e2b3c;
+      line-height: 1.5;
+      padding-bottom: 2rem;
+    }
+    header {
+      background: linear-gradient(145deg, #2b4f7c, #1d3a5c);
+      color: white;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      border-bottom: 5px solid #ffb347;
+    }
+    .header-content h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-content p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    .avatar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255,255,255,0.15);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      backdrop-filter: blur(4px);
+    }
+    .avatar-circle {
+      font-size: 2.5rem;
+      background: #ffb347;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .avatar-message {
+      font-size: 1rem;
+      max-width: 200px;
+      background: white;
+      color: #1e2b3c;
+      padding: 0.6rem 1rem;
+      border-radius: 20px 20px 20px 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .avatar-message::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 15px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 10px solid white;
+    }
+
+    /* Tabs */
+    .tab-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      background: white;
+      padding: 0.8rem;
+      border-radius: 60px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+    .tab-button {
+      background: transparent;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #2b4f7c;
+      white-space: nowrap;
+    }
+    .tab-button:hover {
+      background: #e6eff9;
+    }
+    .tab-button.active {
+      background: #2b4f7c;
+      color: white;
+      box-shadow: 0 4px 8px rgba(43,79,124,0.3);
+    }
+    .tab-content {
+      display: none;
+      background: white;
+      border-radius: 32px;
+      padding: 2rem;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Tarjetas de retos */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: #f9fcff;
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid rgba(43,79,124,0.1);
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 24px rgba(43,79,124,0.1);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+    .card-emoji {
+      font-size: 2.4rem;
+    }
+    .card h3 {
+      font-size: 1.4rem;
+      color: #1d3a5c;
+      margin: 0;
+    }
+    .card p {
+      color: #2d4055;
+      margin-bottom: 1.2rem;
+      font-size: 0.95rem;
+    }
+    .card-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .btn {
+      background: white;
+      border: 1.5px solid #2b4f7c;
+      color: #2b4f7c;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: #2b4f7c;
+      color: white;
+    }
+    .btn i {
+      font-size: 0.9rem;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 32px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #888;
+      cursor: pointer;
+    }
+    .close:hover {
+      color: #000;
+    }
+    #modal-body ul {
+      padding-left: 1.5rem;
+      margin-top: 1rem;
+    }
+    #modal-body li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Tests */
+    .tests-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .test-card {
+      flex: 1 1 300px;
+      background: #f3f7fd;
+      border-radius: 24px;
+      padding: 1.8rem;
+    }
+    .question {
+      background: white;
+      padding: 1.2rem;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    select, button {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 40px;
+      border: 1px solid #cbd5e1;
+      font-size: 1rem;
+    }
+    button {
+      background: #2b4f7c;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    button:hover {
+      background: #1d3a5c;
+    }
+    #results, #results-tmbs {
+      background: #e0f0ff;
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      display: none;
+    }
+    .score-box {
+      font-weight: 700;
+      color: #1d3a5c;
+    }
+
+    /* Recursos */
+    .recursos-section {
+      margin: 2rem 0;
+    }
+    .recursos-section h3 {
+      margin-bottom: 1rem;
+      color: #2b4f7c;
+    }
+    .recursos-list {
+      list-style: none;
+      padding: 0;
+    }
+    .recursos-list li {
+      margin-bottom: 0.8rem;
+    }
+    .recursos-list a {
+      color: #2b4f7c;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .recursos-list a:hover {
+      text-decoration: underline;
+    }
+    #recommendations {
+      background: #fef7e0;
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      color: #4a5b6e;
+    }
+    footer button {
+      width: auto;
+      padding: 0.8rem 2rem;
+      background: #7da737;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>🧭 Brújula Universitaria</h1>
+      <p>Tu acompañante en el primer año</p>
+    </div>
+    <div class="avatar">
+      <div class="avatar-circle">🧑‍🎓</div>
+      <div class="avatar-message">¡Hola! Soy tu guía, pregunta lo que necesites.</div>
+    </div>
+  </header>
+
+  <div class="tab-container">
+    <div class="tabs">
+      <button class="tab-button active" data-tab="inicio">🏠 Inicio</button>
+      <button class="tab-button" data-tab="emociones">😌 Emociones</button>
+      <button class="tab-button" data-tab="tiempo">⏰ Tiempo</button>
+      <button class="tab-button" data-tab="social">👥 Social/Familia</button>
+      <button class="tab-button" data-tab="fortalezas">💪 Fortalezas</button>
+      <button class="tab-button" data-tab="recursos">📚 Recursos</button>
+    </div>
+
+    <!-- INICIO -->
+    <div id="inicio" class="tab-content active">
+      <h2>Bienvenido a tu brújula</h2>
+      <p style="font-size:1.2rem">El primer año de universidad es una aventura llena de retos. Aquí encontrarás información, herramientas y apoyo para cada situación. Explora las pestañas y descubre recursos para tus emociones, tu tiempo, tu vida social y tus fortalezas.</p>
+      <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+        <a href="#" class="btn" onclick="openTab('fortalezas')"><i class="fas fa-clipboard-list"></i> Conócete con tests</a>
+        <a href="#" class="btn" onclick="openTab('recursos')"><i class="fas fa-video"></i> Ver recursos</a>
+      </div>
+    </div>
+
+    <!-- EMOCIONES -->
+    <div id="emociones" class="tab-content">
+      <h2>😌 Mis emociones</h2>
+      <div class="cards-grid" id="emociones-cards"></div>
+    </div>
+
+    <!-- TIEMPO -->
+    <div id="tiempo" class="tab-content">
+      <h2>⏰ Organizar mi tiempo</h2>
+      <div class="cards-grid" id="tiempo-cards"></div>
+    </div>
+
+    <!-- SOCIAL / FAMILIA -->
+    <div id="social" class="tab-content">
+      <h2>👥 Vida social y familiar</h2>
+      <div class="cards-grid" id="social-cards"></div>
+    </div>
+
+    <!-- FORTALEZAS (tests) -->
+    <div id="fortalezas" class="tab-content">
+      <h2>💪 Conoce tus fortalezas</h2>
+      <p>Realiza estos tests para entender mejor cómo aprendes y gestionas tu tiempo. No son evaluaciones, son herramientas de autoconocimiento.</p>
+      
+      <div class="tests-container">
+        <!-- Test MSLQ -->
+        <div class="test-card">
+          <h3>📝 Test de aprendizaje (MSLQ)</h3>
+          <p>Responde con honestidad (1 = Totalmente en desacuerdo, 5 = Totalmente de acuerdo):</p>
+          <form id="mslq-form">
+            <div class="question">
+              <p>1. Creo que puedo aprender bien esta materia, aunque sea difícil.</p>
+              <select name="autoeficacia">
+                <option value="">Selecciona...</option>
+                <option value="1">1 - Totalmente en desacuerdo</option>
+                <option value="2">2 - En desacuerdo</option>
+                <option value="3">3 - Ni de acuerdo ni en desacuerdo</option>
+                <option value="4">4 - De acuerdo</option>
+                <option value="5">5 - Totalmente de acuerdo</option>
+              </select>
+            </div>
+            <div class="question">
+              <p>2. Planeo con anticipación cómo estudiaré para los exámenes.</p>
+              <select name="gestion_tiempo">
+                <option value="">Selecciona...</option>
+                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+              </select>
+            </div>
+            <div class="question">
+              <p>3. Me siento nervioso/a antes de un examen, incluso si estoy preparado/a.</p>
+              <select name="ansiedad">
+                <option value="">Selecciona...</option>
+                <option value="5">1 - Nunca</option>
+                <option value="4">2 - Casi nunca</option>
+                <option value="3">3 - A veces</option>
+                <option value="2">4 - Casi siempre</option>
+                <option value="1">5 - Siempre</option>
+              </select>
+            </div>
+            <div class="question">
+              <p>4. Me interesa aprender lo que se enseña en esta materia.</p>
+              <select name="motivacion">
+                <option value="">Selecciona...</option>
+                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+              </select>
+            </div>
+            <div class="question">
+              <p>5. Si no entiendo algo, lo repaso hasta que lo comprendo.</p>
+              <select name="autorregulacion">
+                <option value="">Selecciona...</option>
+                <option value="5">1 - Nunca</option>
+                <option value="4">2 - Casi nunca</option>
+                <option value="3">3 - A veces</option>
+                <option value="2">4 - Casi siempre</option>
+                <option value="1">5 - Siempre</option>
+              </select>
+            </div>
+          </form>
+          <button onclick="calcularResultados()">Ver resultados</button>
+          <div id="results">
+            <h3>Tus resultados</h3>
+            <p><strong>Autoeficacia:</strong> <span id="score-autoeficacia" class="score-box"></span></p>
+            <p><strong>Gestión del tiempo:</strong> <span id="score-gestion_tiempo" class="score-box"></span></p>
+            <p><strong>Ansiedad:</strong> <span id="score-ansiedad" class="score-box"></span></p>
+            <p><strong>Motivación:</strong> <span id="score-motivacion" class="score-box"></span></p>
+            <p><strong>Autorregulación:</strong> <span id="score-autorregulacion" class="score-box"></span></p>
+            <div id="recomendaciones-test"><h4>Recomendaciones:</h4><ul id="lista-rec-test"></ul></div>
+          </div>
+        </div>
+
+        <!-- Test TMBS -->
+        <div class="test-card">
+          <h3>⏰ Test de gestión del tiempo (TMBS)</h3>
+          <p>1 = Nunca, 5 = Siempre</p>
+          <form id="tmbs-form">
+            <div class="question"><p>1. Hago una lista de tareas pendientes antes de empezar a estudiar.</p><select name="planificacion"><option value="">...</option><option value="5">1</option><option value="4">2</option><option value="3">3</option><option value="2">4</option><option value="1">5</option></select></div>
+            <div class="question"><p>2. Priorizo mis tareas según su importancia y urgencia.</p><select name="priorizacion"><option value="">...</option><option value="5">1</option><option value="4">2</option><option value="3">3</option><option value="2">4</option><option value="1">5</option></select></div>
+            <div class="question"><p>3. Evito distracciones (celular, redes) cuando estudio.</p><select name="enfoque"><option value="">...</option><option value="5">1</option><option value="4">2</option><option value="3">3</option><option value="2">4</option><option value="1">5</option></select></div>
+            <div class="question"><p>4. Reviso mi progreso semanal y ajusto mis planes.</p><select name="revision"><option value="">...</option><option value="5">1</option><option value="4">2</option><option value="3">3</option><option value="2">4</option><option value="1">5</option></select></div>
+            <div class="question"><p>5. Comienzo a prepararme para los exámenes con varias semanas de anticipación.</p><select name="anticipacion"><option value="">...</option><option value="5">1</option><option value="4">2</option><option value="3">3</option><option value="2">4</option><option value="1">5</option></select></div>
+            <div class="question"><p>6. Suelo terminar las tareas antes de la fecha de entrega.</p><select name="adelanto"><option value="">...</option><option value="5">1</option><option value="4">2</option><option value="3">3</option><option value="2">4</option><option value="1">5</option></select></div>
+          </form>
+          <button onclick="calcularTMBS()">Ver resultados</button>
+          <div id="results-tmbs">
+            <h3>Resultados gestión del tiempo</h3>
+            <p><strong>Puntaje total:</strong> <span id="score-tmbs" class="score-box"></span>/30</p>
+            <p><strong>Nivel:</strong> <span id="nivel-tmbs"></span></p>
+            <div id="recomendaciones-tmbs"><h4>Recomendaciones:</h4><ul id="lista-rec-tmbs"></ul></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECURSOS -->
+    <div id="recursos" class="tab-content">
+      <h2>📚 Recursos y herramientas</h2>
+      
+      <div class="recursos-section">
+        <h3>🎥 Videos que inspiran</h3>
+        <ul class="recursos-list">
+          <li><a href="https://www.youtube.com/watch?v=26661z9gd04" target="_blank">Aprender más estudiando menos – Dr. Marty Lobdell</a></li>
+          <li><a href="https://www.youtube.com/watch?v=PG6oFK0a1NA" target="_blank">¿Qué pasa dentro de la mente de un procrastinador? – Tim Urban</a></li>
+          <li><a href="https://www.youtube.com/watch?v=NRdRM8Sw_bw" target="_blank">Cómo tener tiempo libre en la universidad – Carlos Reyes</a></li>
+        </ul>
+      </div>
+
+      <div class="recursos-section">
+        <h3>📱 Apps que te salvan</h3>
+        <ul class="recursos-list">
+          <li><a href="https://forestapp.cc/" target="_blank">Forest – No procrastines</a></li>
+          <li><a href="https://todoist.com/" target="_blank">Todoist – Organiza tareas</a></li>
+          <li><a href="https://insighttimer.com/" target="_blank">Insight Timer – Meditación gratuita</a></li>
+        </ul>
+      </div>
+
+      <div class="recursos-section">
+        <h3>📥 Plantillas descargables</h3>
+        <ul class="recursos-list">
+          <li><a href="https://www.studyskills.com/downloads/weekly-planner" target="_blank">Planificador semanal (PDF)</a></li>
+          <li><a href="https://www.unir.net/wp-content/uploads/2021/05/Guia-estudiantes-exitosos.pdf" target="_blank">Guía para estudiantes exitosos (UNIR)</a></li>
+        </ul>
+      </div>
+
+      <div class="recursos-section">
+        <h3>🔍 Diagnóstico rápido</h3>
+        <p>Ingresa una palabra clave sobre tu mayor desafío (ej: ansiedad, procrastino, amigos):</p>
+        <input type="text" id="diagnostico" placeholder="Ej: ansiedad, procrastino, desorganizado..." style="width:70%; padding:0.8rem; border-radius:40px; border:1px solid #ccc;">
+        <button onclick="mostrarRecomendaciones()" style="width:auto; margin-left:1rem;">Buscar</button>
+        <div id="recommendations">
+          <h4>Recursos sugeridos:</h4>
+          <ul id="lista-recursos"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal (para señales y apps) -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3 id="modal-title"></h3>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Hecho con 💙 para estudiantes universitarios · No estás solo</p>
+    <button onclick="window.location.href='mailto:ufbi.tutoria@oficinas-upch.pe'">📧 Enviar correo de ayuda</button>
+  </footer>
+
+  <script>
+    // ---------- DATOS DE RETOS ----------
+    const retos = [
+      // Emocionales
+      { key: 'ansiedad', titulo: '¿Te sientes abrumado?', descripcion: 'Te presiona el volumen de trabajo, exámenes y miedo al fracaso.', emoji: '🤯', categoria: 'emociones', video: 'https://www.youtube.com/watch?v=nPjGyGBhhHg',
+        señales: '<p>Señales de ansiedad por rendimiento o exámenes:</p><ul><li>tensión muscular</li><li>dificultad para concentrarse</li><li>inquietud</li><li>pensamientos negativos sobre el fracaso.</li></ul>',
+        apps: [{ nombre: 'Medito', descripcion: 'Meditaciones guiadas para reducir estrés.', link: 'https://meditofoundation.org/' }, { nombre: 'Insight Timer', descripcion: 'App gratuita de meditación.', link: 'https://insighttimer.com/' }] },
+      { key: 'emociones', titulo: '¿Te sientes ansioso?', descripcion: 'Aprende nuevas estrategias para regular emociones intensas.', emoji: '🎭', categoria: 'emociones', video: 'https://www.youtube.com/watch?v=B7Qb7Um6SHk',
+        señales: '<p>Señales de mala regulación emocional:</p><ul><li>explosiones de ira</li><li>frustración continua</li><li>dificultad para tomar decisiones</li><li>sensación de agotamiento emocional.</li></ul>',
+        apps: [{ nombre: 'Yana', descripcion: 'Evalúa tu estado emocional.', link: 'https://www.yana.ai/' }, { nombre: 'Diario de Pensamiento TCC', descripcion: 'Claridad mental.', link: 'https://www.thinkwithclarity.com/' }] },
+      { key: 'saturacion', titulo: 'Saturación emocional', descripcion: 'Cansancio extremo, irritabilidad, aislamiento.', emoji: '📚', categoria: 'emociones', video: 'https://www.tiktok.com/@romirossi_psic/video/7502550030864190727',
+        señales: '<p>Señales de saturación emocional:</p><ul><li>cansancio extremo</li><li>irritabilidad</li><li>aislamiento</li><li>dificultad para concentrarse.</li></ul>',
+        apps: [{ nombre: 'The Mindfulnessapp', descripcion: 'Calma y salud mental.', link: 'https://www.themindfulnessapp.com/' }, { nombre: 'Smiling Mind', descripcion: 'Habilidades de salud mental.', link: 'https://www.smilingmind.com.au/' }] },
+      { key: 'presion-excelencia', titulo: 'Presión por excelencia', descripcion: 'Miedo a cometer errores, perfeccionismo extremo.', emoji: '🎖️', categoria: 'emociones', video: 'https://www.tiktok.com/@dependencia.academica_/video/7494039213919309062',
+        señales: '<p>Señales de presión por excelencia:</p><ul><li>miedo a cometer errores</li><li>perfeccionismo extremo</li><li>autoexigencia desmedida</li><li>ansiedad anticipatoria.</li></ul>',
+        apps: [{ nombre: 'Sanvello', descripcion: 'Manejo de ansiedad y presión.', link: 'https://ticsalutsocial.cat/es/app/sanvello/' }] },
+      { key: 'confianza', titulo: 'Baja confianza', descripcion: 'Comparación constante, evitación de retos.', emoji: '💔', categoria: 'emociones', video: 'https://www.youtube.com/watch?v=WvI3tnank04',
+        señales: '<p>Señales de baja confianza: comparación constante, evitación de retos nuevos, falta de iniciativa y sentimientos de inferioridad.</p>',
+        apps: [{ nombre: 'Happify', descripcion: 'Actividades para mejorar autoestima.', link: 'https://www.happify.com' }] },
+      { key: 'eleccion-carrera', titulo: 'Dudas sobre tu carrera', descripcion: 'Incertidumbre, miedo al fracaso, ansiedad sobre el futuro.', emoji: '👩‍🎓', categoria: 'emociones', video: 'https://www.tiktok.com/@faridieck/video/7038343604200393990',
+        señales: '<p>Señales de incertidumbre en elección de carrera:</p><ul><li>indecisión frecuente</li><li>miedo al fracaso</li><li>falta de claridad en metas</li><li>ansiedad sobre el futuro.</li></ul>',
+        apps: [{ nombre: 'Micarrera', descripcion: 'Explora opciones de carreras.', link: 'https://micarrera.trabajo.gob.pe/' }] },
+      
+      // Tiempo
+      { key: 'gestion-tiempo', titulo: 'Miedo a tomar decisiones', descripcion: 'Inseguridad por gestión de tiempo, finanzas y hábitos.', emoji: '🧙', categoria: 'tiempo', video: 'https://www.youtube.com/watch?v=T4ZywTLjl60',
+        señales: '<p>Señales comunes de dificultad en gestión de tiempo:</p><ul><li>falta de planificación</li><li>sensación de abrumamiento</li><li>retrasos constantes</li><li>estrés frecuente.</li></ul>',
+        apps: [{ nombre: 'Todoist', descripcion: 'Organiza tareas con prioridades.', link: 'https://todoist.com' }, { nombre: 'Forest', descripcion: 'Concéntrate plantando árboles.', link: 'https://www.forestapp.cc/' }] },
+      { key: 'procrastinar', titulo: 'No logras estudiar', descripcion: 'Procrastinación, postergar tareas, distracciones.', emoji: '😕', categoria: 'tiempo', video: 'https://www.tiktok.com/@psicoexistencia/video/7504003440800959750',
+        señales: '<p>Señales de procrastinación:</p><ul><li>postergar tareas</li><li>distracciones frecuentes</li><li>sensación de culpa</li><li>estrés por tareas acumuladas.</li></ul>',
+        apps: [{ nombre: 'MyNoise', descripcion: 'Música para concentración.', link: 'https://mynoise.net/' }] },
+      { key: 'desmotivacion', titulo: 'Perdiendo motivación', descripcion: 'Pérdida de interés, apatía, falta de energía.', emoji: '💡', categoria: 'tiempo', video: 'https://www.tiktok.com/@coaching.gifted/video/7472499121505488174',
+        señales: '<p>Señales de desmotivación:</p><ul><li>pérdida de interés</li><li>apatía</li><li>falta de energía</li><li>sentimientos de inutilidad.</li></ul>',
+        apps: [{ nombre: 'Habitica', descripcion: 'Crea hábitos saludables.', link: 'https://habitica.com/' }] },
+      
+      // Social / Familia
+      { key: 'aislamiento', titulo: 'Te sientes solo', descripcion: 'Lejos de casa, dificultad para hacer amigos.', emoji: '😶‍🌫️', categoria: 'social', video: 'https://www.tiktok.com/@arivalen28_/video/7519666384108834104',
+        señales: '<p>Señales de aislamiento:</p><ul><li>poca interacción social</li><li>sentimientos de soledad</li><li>dificultad para hacer amigos</li><li>tristeza persistente.</li></ul>',
+        apps: [{ nombre: 'Meetup', descripcion: 'Grupos sociales para conectar.', link: 'https://www.meetup.com/es/' }] },
+      { key: 'hacer-amigos', titulo: 'Dificultad para hacer amigos', descripcion: 'Te cuesta iniciar conversaciones, sientes que no encajas.', emoji: '🤝', categoria: 'social', video: 'https://www.youtube.com/watch?v=CFh8WQxN1zU',
+        señales: '<p>Señales: timidez extrema, evitar eventos, sentir que no perteneces.</p>',
+        apps: [{ nombre: 'Slowly', descripcion: 'Conoce amigos por correspondencia.', link: 'https://slowly.app/' }] },
+      { key: 'nostalgia', titulo: 'Nostalgia del hogar', descripcion: 'Extrañas tu casa, familia, amigos de antes.', emoji: '🏡', categoria: 'social', video: 'https://www.youtube.com/watch?v=H6vS_gUe7O0',
+        señales: '<p>Señales: añoranza constante, tristeza, dificultad para adaptarte.</p>',
+        apps: [{ nombre: 'Headspace', descripcion: 'Meditación para manejar emociones.', link: 'https://www.headspace.com/' }] },
+      { key: 'conflictos-familiares', titulo: 'Conflictos con la familia', descripcion: 'Discusiones, incomprensión, presión familiar.', emoji: '👪', categoria: 'social', video: 'https://www.youtube.com/watch?v=8vJqVgC7lLg',
+        señales: '<p>Señales: peleas frecuentes, sentir que no te entienden, malestar al hablar con ellos.</p>',
+        apps: [{ nombre: '7 Cups', descripcion: 'Apoyo emocional y consejería.', link: 'https://www.7cups.com/' }] }
+    ];
+
+    // ---------- FUNCIONES DE PESTAÑAS ----------
+    function openTab(tabName) {
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(t => t.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      
+      const buttons = document.querySelectorAll('.tab-button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.tab-button[data-tab="${tabName}"]`).classList.add('active');
+    }
+
+    document.querySelectorAll('.tab-button').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        openTab(e.target.dataset.tab);
+      });
+    });
+
+    // ---------- RENDERIZAR TARJETAS ----------
+    function renderCards() {
+      const emociones = retos.filter(r => r.categoria === 'emociones');
+      const tiempo = retos.filter(r => r.categoria === 'tiempo');
+      const social = retos.filter(r => r.categoria === 'social');
+
+      document.getElementById('emociones-cards').innerHTML = emociones.map(cardHTML).join('');
+      document.getElementById('tiempo-cards').innerHTML = tiempo.map(cardHTML).join('');
+      document.getElementById('social-cards').innerHTML = social.map(cardHTML).join('');
+    }
+
+    function cardHTML(r) {
+      return `
+        <div class="card">
+          <div class="card-header">
+            <span class="card-emoji">${r.emoji}</span>
+            <h3>${r.titulo}</h3>
+          </div>
+          <p>${r.descripcion}</p>
+          <div class="card-buttons">
+            <button class="btn" onclick='mostrarModal("señales", ${JSON.stringify(r)})'><i class="fas fa-lightbulb"></i> Señales</button>
+            <button class="btn" onclick='mostrarModal("apps", ${JSON.stringify(r)})'><i class="fas fa-mobile-alt"></i> Apps</button>
+            <a href="${r.video}" target="_blank" class="btn"><i class="fas fa-video"></i> Video</a>
+          </div>
+        </div>
+      `;
+    }
+
+    // ---------- MODAL ----------
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    const closeBtn = document.querySelector('.close');
+
+    closeBtn.onclick = () => modal.style.display = 'none';
+    window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; }
+
+    function mostrarModal(tipo, reto) {
+      modalTitle.innerText = tipo === 'señales' ? `🔍 Señales: ${reto.titulo}` : `📱 Apps para ${reto.titulo}`;
+      if (tipo === 'señales') {
+        modalBody.innerHTML = reto.señales;
+      } else {
+        let html = '<ul>';
+        reto.apps.forEach(app => {
+          html += `<li><strong>${app.nombre}</strong>: ${app.descripcion} <a href="${app.link}" target="_blank">Visitar</a></li>`;
+        });
+        html += '</ul>';
+        modalBody.innerHTML = html;
+      }
+      modal.style.display = 'flex';
+    }
+
+    // ---------- TESTS (MSLQ y TMBS) ----------
+    function calcularResultados() {
+      const form = document.getElementById('mslq-form');
+      const data = new FormData(form);
+      let scores = { autoeficacia:0, gestion_tiempo:0, ansiedad:0, motivacion:0, autorregulacion:0 };
+      let counts = { ...scores };
+
+      for (let [key, value] of data) {
+        if (value) {
+          scores[key] += parseInt(value);
+          counts[key] += 1;
+        }
+      }
+      for (let key in scores) {
+        if (counts[key] > 0) scores[key] = (scores[key] / counts[key]).toFixed(1);
+        else scores[key] = '—';
+      }
+      document.getElementById('score-autoeficacia').textContent = scores.autoeficacia;
+      document.getElementById('score-gestion_tiempo').textContent = scores.gestion_tiempo;
+      document.getElementById('score-ansiedad').textContent = scores.ansiedad;
+      document.getElementById('score-motivacion').textContent = scores.motivacion;
+      document.getElementById('score-autorregulacion').textContent = scores.autorregulacion;
+
+      // recomendación simple (dimensión más baja)
+      const min = Object.keys(scores).reduce((a,b) => (parseFloat(scores[a])||5) < (parseFloat(scores[b])||5) ? a : b);
+      const lista = document.getElementById('lista-rec-test');
+      lista.innerHTML = '';
+      const recs = {
+        autoeficacia: ['🎥 <a href="https://www.youtube.com/watch?v=IFSMQJCda10" target="_blank">5 maneras de ser más productivo</a>'],
+        gestion_tiempo: ['📅 <a href="https://www.google.com/calendar" target="_blank">Google Calendar</a>', '📱 Forest'],
+        ansiedad: ['🧘 <a href="https://insighttimer.com/" target="_blank">Insight Timer</a>'],
+        motivacion: ['🎥 <a href="https://www.youtube.com/watch?v=26661z9gd04" target="_blank">Aprender más estudiando menos</a>'],
+        autorregulacion: ['🧠 <a href="https://www.notion.so/" target="_blank">Notion</a>']
+      };
+      if (recs[min]) recs[min].forEach(r => { let li = document.createElement('li'); li.innerHTML = r; lista.appendChild(li); });
+      document.getElementById('results').style.display = 'block';
+    }
+
+    function calcularTMBS() {
+      const form = document.getElementById('tmbs-form');
+      const data = new FormData(form);
+      let total = 0;
+      for (let [_, value] of data) if (value) total += parseInt(value);
+      document.getElementById('score-tmbs').textContent = total;
+      const percent = (total / 30) * 100;
+      let nivel, recoms;
+      if (percent >= 80) { nivel = 'Alto ✅'; recoms = ['🎉 Excelente, sigue así']; }
+      else if (percent >= 50) { nivel = 'Medio ⚠️'; recoms = ['📅 Usa Google Calendar', '📱 Forest']; }
+      else { nivel = 'Bajo ❌'; recoms = ['🎥 Cómo tener tiempo libre', '📱 Todoist']; }
+      document.getElementById('nivel-tmbs').textContent = nivel;
+      const lista = document.getElementById('lista-rec-tmbs');
+      lista.innerHTML = '';
+      recoms.forEach(r => { let li = document.createElement('li'); li.innerHTML = r; lista.appendChild(li); });
+      document.getElementById('results-tmbs').style.display = 'block';
+    }
+
+    // ---------- RECURSOS POR DIAGNÓSTICO ----------
+    function mostrarRecomendaciones() {
+      const input = document.getElementById('diagnostico').value.toLowerCase();
+      const lista = document.getElementById('lista-recursos');
+      lista.innerHTML = '';
+      const recs = {
+        ansiedad: ['🧘 Insight Timer', '📘 Guía UNIR'],
+        procrastino: ['📱 Forest', '🎥 Tim Urban'],
+        amigos: ['🤝 Meetup', '🎥 Cómo hacer amigos'],
+        familia: ['👪 7 Cups', '🎥 Comunicación familiar'],
+        tiempo: ['📅 Google Calendar', '📱 Todoist']
+      };
+      let found = false;
+      for (let key in recs) {
+        if (input.includes(key)) {
+          recs[key].forEach(t => { let li = document.createElement('li'); li.textContent = t; lista.appendChild(li); });
+          found = true;
+        }
+      }
+      if (!found) lista.innerHTML = '<li>Prueba con: ansiedad, procrastino, amigos, familia, tiempo.</li>';
+      document.getElementById('recommendations').style.display = 'block';
+    }
+
+    // Inicializar
+    renderCards();
+  </script>
+</body>
+</html>
